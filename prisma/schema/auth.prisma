@@ -11,7 +11,8 @@ model User {
   updatedAt     DateTime  @updatedAt
   sessions      Session[]
   accounts      Account[]
-
+  tutorProfile  tutorProfile[]
+  
   @@unique([email])
   @@map("user")
 }

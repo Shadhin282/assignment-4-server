@@ -1,40 +1,66 @@
-import { success } from "better-auth/*";
-import { Request, Response } from "express"
+import { Request, Response } from "express";
 import { tutorService } from "./tutor.service";
 
+const getTutor = async (req: Request, res: Response) => {
+  try {
+    const { search, rating, price, category } = req.query;
 
+    const searchString = typeof search === "string" ? search : "";
+    const categoryName = typeof category === "string" ? category : "";
 
-const getTutor = async (req:Request,res: Response)=>{
-    try {
-        
-        const {search, rating, price} = req.query;
-        const searchString = typeof search === 'string' ? search : undefined;
-        
-        console.log(search, typeof rating, price)
+    const ratingNumber =
+      typeof rating === "string" && !isNaN(Number(rating))
+        ? Number(rating)
+        : 0;
 
-        const ratingNumber = req.query.rating as number | undefined ;
-        const priceNumber = req.query.price as number | undefined;
+    const priceNumber =
+      typeof price === "string" && !isNaN(Number(price))
+        ? Number(price)
+        : 0;
 
-        const result = await tutorService.getTutor(searchString, ratingNumber, priceNumber)
+    const result = await tutorService.getTutor(
+      searchString,
+      ratingNumber,
+      priceNumber,
+      categoryName
+    );
 
-        res.status(200).json({
-            success : true,
-            message : "Require Data Fetch Successfully.",
-            data : result
-        })
-    } catch (error) {
-        res.status(500).json({
-            success: false,
-            message: 'Internal Error',
-            data : error
-        })
-
+    if (!result || result.length === 0) {
+      return res.status(404).json({
+        success: false,
+        message: "No tutor data found",
+      });
     }
+
+    res.status(200).json({
+      success: true,
+      message: "Required data fetched successfully",
+      data: result,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Internal server error",
+      error: (error as Error).message,
+    });
+  }
+};
+
+
+const getTutorById = async (req: Request, res: Response) => {
+        try {
+                const {id} = req.params;
+                if(!id){
+                   return res.send("No Id ")
+                }
+                const result = await tutorService.getTutorById(id as string)
+                
+        } catch (error) {
+            
+        }
 }
-
-
-
 
 export const tutorController = {
-        getTutor,
-}
+  getTutor,
+  getTutorById,
+};

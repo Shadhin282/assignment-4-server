@@ -4,7 +4,8 @@ import { bookingController } from "./booking.controller";
 
 const router = express.Router();
 
-router.get('/',bookingController.getbooking)
+router.get('/',bookingController.getBooking)
+router.post('/',bookingController.postBooking)
 
 
 
