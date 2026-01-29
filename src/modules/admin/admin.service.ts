@@ -1,5 +1,9 @@
 
-const getUsers = ()=>{
+const getUsers = async () =>{
+
+}
+
+const getUsersById = async () =>{
 
 }
 
@@ -8,4 +12,5 @@ const getUsers = ()=>{
 
 export const userService = {
         getUsers,
+        getUsersById
 } 

@@ -31,12 +31,13 @@ app.get("/api/me", async (req, res) => {
 
 
 app.use('/api/tutors',tutorRoute)
+app.use('/api/tutor', tutorRoute)
 
 app.use('/api/bookings',bookingRoute)
 
 app.use('api/reviews',reviewsRoute)
 
-app.use('/api/admin',userRoute)
+app.use('/api/admin/users',userRoute)
 
 app.get("/", (req, res) => {
     

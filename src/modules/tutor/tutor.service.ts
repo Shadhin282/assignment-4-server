@@ -19,7 +19,13 @@ const getTutor = async (
         {
           hourlyRate: price as number ,
         },
-       
+       {
+        review : {
+           
+            rating : rating as number
+          
+        }
+       },
         {
           categories: {
             some: {
@@ -49,8 +55,28 @@ const getTutorById = async (id: string )=>{
 }
 
 
+const putTutorProfile = async (id: string, data: {}) => {
+    const result = await prisma.tutorProfile.update({
+      where : {
+        id : id as string
+      },
+      data
+    })
+}
+
+const putTutorAvailability = async (id : string ,data: {}) => {
+        const result = await prisma.tutorProfile.update({
+          where : {
+            id
+          },
+          data
+        })
+}
+
 
 export const tutorService = {
   getTutor,
   getTutorById,
+  putTutorProfile,
+  putTutorAvailability
 };

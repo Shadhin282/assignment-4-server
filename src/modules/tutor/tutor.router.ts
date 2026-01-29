@@ -5,7 +5,8 @@ const router = express.Router();
 
 router.get('/',tutorController.getTutor)
 router.get('/:id', tutorController.getTutorById)
-
+router.put('/profile', tutorController.putTutorProfile)
+router.put('/availability', tutorController.putTutorAvailability)
 
 
 export const tutorRoute = router;

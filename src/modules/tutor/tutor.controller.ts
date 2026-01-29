@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { tutorService } from "./tutor.service";
+import { Result } from "pg";
 
 const getTutor = async (req: Request, res: Response) => {
   try {
@@ -60,7 +61,30 @@ const getTutorById = async (req: Request, res: Response) => {
         }
 }
 
+const putTutorProfile = async (req: Request, res: Response) => {
+      try {
+          if(!req.body){
+            return res.send("No Update data")
+          }
+          const result = await tutorService.putTutorProfile(req.body , req.body)
+      } catch (error) {
+        
+      }
+}
+
+const putTutorAvailability = async (req: Request, res: Response) => {
+  try {
+      if(!req.body){
+            return res.send("No Update data")
+          }
+          const result = await tutorService.putTutorProfile(req.body , req.body)
+  } catch (error) {
+    
+  }
+}
 export const tutorController = {
   getTutor,
   getTutorById,
+  putTutorProfile,
+  putTutorAvailability
 };
