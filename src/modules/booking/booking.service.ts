@@ -1,3 +1,4 @@
+import { BookingStatus } from "../../../prisma/generated/prisma/enums"
 import { prisma } from "../../lib/prisma"
 
 const getBooking = async ()=>{
@@ -7,16 +8,25 @@ const getBooking = async ()=>{
 const getBookingById = async (id:string)=> {
         const result = await prisma.booking.findFirst({
                 where : {
-                        studentProfile : {
-                                studentId : id
+                        student : {
+                                id : id
                         } 
                 }
         })
 }
 
-const postBooking = async (payload:{}) => {
+const postBooking = async (payload: { date: Date; status: string; studentId: string; tutorId: string }) => {
         const result = await prisma.booking.create({
-                data :payload
+                data: {
+                        date: payload.date,
+                        status: payload.status as BookingStatus,
+                        student: {
+                                connect: { id: payload.studentId }
+                        },
+                        tutor: {
+                                connect: { id: payload.tutorId }
+                        }
+                }
         })
         return result;
 }

@@ -13,21 +13,18 @@ const getTutor = async (
     where: {
       AND: [
         {
-          subjects: {
-            has: search as string,
-          },
+          subjects: search as string,
+          
         },
         {
           hourlyRate: price as number ,
         },
+       
         {
-          review: {
-            rating: rating as number,
-          },
-        },
-        {
-          category: {
-            name: name as string,
+          categories: {
+            some: {
+              name: name as string,
+            },
           },
         },
       ],

@@ -5,6 +5,10 @@ model TutorProfile {
     hourlyRate   Float?
     subjects     String? // JSON string or comma separated
     availability String? // JSON string
+    
+    reviewId     String?
+
+    review   Review? @relation(fields: [reviewId], references: [id])
 
     user       User       @relation(fields: [userId], references: [id], onDelete: Cascade)
     categories Category[]
