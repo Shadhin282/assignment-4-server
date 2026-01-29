@@ -1,0 +1,13 @@
+model StudentProfile {
+    id String @id @default(uuid())
+    name String
+    studentId String @unique
+    studentEmail String
+    bio String?
+    department String?
+    FavroiteSubjects String[]
+    
+    bookings Booking[]
+    reviews Review[]
+    
+}

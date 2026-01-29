@@ -1,0 +1,16 @@
+model Review {
+    id String @id @default(uuid())
+    studentId String
+    studentEmail String
+    tutorId String
+    tutorEmail String
+    rating Int
+    reviewText String
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    studentProfile StudentProfile @relation(fields: [studentId], references : [studentId])
+
+    @@index([studentId])
+    @@index([tutorId])
+}

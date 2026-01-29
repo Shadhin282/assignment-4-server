@@ -1,0 +1,20 @@
+model Booking {
+    id String @id @default(uuid())
+    studentId String
+    studentEmail String
+    tutorId String
+    tutorEmail String
+    bookingDate DateTime
+    status bookingStatus @default(pending)
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    studentProfile StudentProfile @relation(fields: [studentId], references: [studentId])
+}
+
+enum bookingStatus {
+    pending
+    confirmed
+    rejected
+
+}

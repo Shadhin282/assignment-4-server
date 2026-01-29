@@ -1,0 +1,16 @@
+model tutorProfile {
+    id String @id @default(uuid())
+    name String
+    tutorId String
+    tutorEmail String
+    bio String?
+    hourlyRate Float
+    subjects String[]
+    availability String[]
+    categoryId String
+
+    category Category @relation(fields: [categoryId], references: [id])
+
+    @@index([categoryId])
+    @@index([tutorId])
+}
