@@ -1,7 +1,11 @@
 import express from "express";
 import cors from "cors";
-import { toNodeHandler } from "better-auth/node";
+import { fromNodeHeaders, toNodeHandler } from "better-auth/node";
 import { auth } from "./lib/auth";
+import { tutorRoute } from "./modules/tutor/tutor.router";
+import { bookingRoute } from "./modules/booking/booking.router";
+import { reviewsRoute } from "./modules/review/review.router";
+import { userRoute } from "./modules/admin/admin.router";
 
 
 const app = express();
@@ -16,8 +20,23 @@ app.use(cors({
 app.use(express.json());
 
 
-
+// Auth route 
 app.all('/api/auth/*splat', toNodeHandler(auth));
+app.get("/api/me", async (req, res) => {
+ 	const session = await auth.api.getSession({
+      headers: fromNodeHeaders(req.headers),
+    });
+	return res.json(session);
+});
+
+
+app.use('/api/tutors',tutorRoute)
+
+app.use('/api/booking',bookingRoute)
+
+app.use('api/reviews',reviewsRoute)
+
+app.use('/api/admin',userRoute)
 
 app.get("/", (req, res) => {
     
