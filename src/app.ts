@@ -6,6 +6,8 @@ import { tutorRoute } from "./modules/tutor/tutor.router";
 import { bookingRoute } from "./modules/booking/booking.router";
 import { reviewsRoute } from "./modules/review/review.router";
 import { userRoute } from "./modules/admin/admin.router";
+import { notFound } from "./middleware/notFound";
+import errorHandler from "./middleware/globalErrorHandler";
 
 
 const app = express();
@@ -43,5 +45,8 @@ app.get("/", (req, res) => {
     
     res.send("Hello, Skill Bridge World!");
 });
+
+app.use(notFound);
+app.use(errorHandler)
 
 export default app;
