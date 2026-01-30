@@ -1,38 +1,69 @@
-import { Request, Response } from "express"
+import { NextFunction, Request, Response } from "express"
 import { bookingService } from "./booking.service";
 
 
 
-const getBooking= async (req:Request,res: Response)=>{
+const getBooking= async (req:Request,res: Response,next:NextFunction)=>{
                 try {
-                        
+                        const result = await bookingService.getBooking()
+                         if(!result){
+                        return res.status(400).json({
+                        success: false,
+                        message : "Booking has not got"
+                        })
+                }
+                res.status(200).json({
+                        success: true,
+                        message : "Booking Data fetch Successfully",
+                        data : result
+                })
                 } catch (error) {
-                        
+                        next(error)
                 }
 }
 
 
-const getBookingById = async (req:Request, res:Response)=>{
+const getBookingById = async (req:Request, res:Response,next:NextFunction)=>{
         try {
                 const {id} = req.params;
                 if(!id){
                         return res.send("No ID");
                 }
                 const result = await bookingService.getBookingById(id as string)
-
+                 if(!result){
+                        return res.status(400).json({
+                        success: false,
+                        message : "Booking data has not got"
+                        })
+                }
+                res.status(200).json({
+                        success: true,
+                        message : "Booking data has got Successfully",
+                        data : result
+                })
         } catch (error) {
-                
+                 next(error)
         }
 }
 
-const postBooking = async (req:Request, res: Response) => {
+const postBooking = async (req:Request, res: Response,next:NextFunction) => {
        try {
                  const bookingInfo = req.body;
 
         const result = await bookingService.postBooking(bookingInfo)
-        
+         if(!result){
+                        return res.status(400).json({
+                        success: false,
+                        message : "Review has not created"
+                        })
+                }
+                res.status(200).json({
+                        success: true,
+                        message : "Booking Data has created Successfully",
+                        data : result
+                })
        } catch (error) {
-        
+         next(error)
        }
 }
 

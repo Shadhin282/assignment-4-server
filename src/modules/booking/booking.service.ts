@@ -3,6 +3,7 @@ import { prisma } from "../../lib/prisma"
 
 const getBooking = async ()=>{
         const result = await prisma.booking.findMany()
+        return result;
 }
 
 const getBookingById = async (id:string)=> {
@@ -13,6 +14,7 @@ const getBookingById = async (id:string)=> {
                         } 
                 }
         })
+        return result;
 }
 
 const postBooking = async (payload: { date: Date; status: string; studentId: string; tutorId: string }) => {

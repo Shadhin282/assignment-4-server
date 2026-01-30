@@ -1,39 +1,44 @@
-import { Request, Response } from "express"
+import { NextFunction, Request, Response } from "express"
 import { reviewsService } from "./review.service"
 
 
 
-const getReview = async (req:Request,res: Response)=>{
+
+const getReview = async (req:Request,res: Response, next:NextFunction)=>{
         try {
                 const result = await reviewsService.getReview()
+                 if(!result){
+                        return res.status(400).json({
+                        success: false,
+                        message : "Review has not got"
+                        })
+                }
                 res.status(200).json({
                         success: true,
                         message : "Review Data fetch Successfully",
                         data : result
                 })
         } catch (error) {
-                res.status(500).json({
-                        success: false,
-                        message : "Internal error",
-                        error : error
-                })
+                next(error)
         }
 }
-const postReview = async (req:Request,res: Response)=>{
+const postReview = async (req:Request,res: Response, next: NextFunction)=>{
         try {
                 const {rating, comment} = req.body;
                 const result = await reviewsService.postReview(req.body)
+                if(!result){
+                        return res.status(400).json({
+                        success: false,
+                        message : "Review has not created"
+                        })
+                }
                  res.status(201).json({
                         success: true,
-                        message : "Review Data fetch Successfully",
+                        message : "Review Data has created Successfully",
                         data : result
                 })
         } catch (error) {
-                res.status(501).json({
-                        success: false,
-                        message : "Internal error",
-                        error : error
-                })
+                next(error)
         }
 }
 

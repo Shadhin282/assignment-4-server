@@ -35,6 +35,7 @@ const getTutor = async (
         },
       ],
     },
+   
   });
 
   return result;
@@ -55,22 +56,29 @@ const getTutorById = async (id: string )=>{
 }
 
 
-const putTutorProfile = async (id: string, data: {}) => {
+const putTutorProfile = async (id: string, data: {bio : string;
+    hourlyRate: number;
+    subjects :  string; 
+    availability : string;}) => {
     const result = await prisma.tutorProfile.update({
       where : {
         id : id as string
       },
       data
     })
+    return result;
 }
 
-const putTutorAvailability = async (id : string ,data: {}) => {
+const putTutorAvailability = async (id : string  ,data: {status:string}) => {
         const result = await prisma.tutorProfile.update({
           where : {
             id
           },
-          data
+          data : {
+            availability: data.status
+          }
         })
+        return result;
 }
 
 

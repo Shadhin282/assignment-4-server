@@ -1,13 +1,14 @@
 import express from "express";
 import { userController } from "./admin.controller";
 import { auth } from "../../middleware/auth";
+import { UserRole } from "../../../prisma/generated/prisma/enums";
 
 
 
 const router = express.Router();
 
-router.get('/',auth(),userController.getUsers)
-router.patch('/:id',userController.getUsersById)
+router.get('/',auth(UserRole.ADMIN),userController.getUsers)
+router.patch('/:id',auth(UserRole.ADMIN),userController.getUsersById)
 
 
 
