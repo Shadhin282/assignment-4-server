@@ -4,7 +4,16 @@ const getReview =async ()=>{
         const result = await prisma.review.findMany()
         return result
 }
+
+
 const postReview =async (payload:{ rating : number, comment: string, studentId: string, tutorId: string})=>{
+      
+        const tutorProfile = await prisma.tutorProfile.findUniqueOrThrow({
+                where : {
+                        id : payload.tutorId
+                }
+        })
+
         const result = await prisma.review.create({
                 data  : {
                        rating :  payload.rating,
@@ -13,6 +22,7 @@ const postReview =async (payload:{ rating : number, comment: string, studentId: 
                        tutor: { connect: { id: payload.tutorId } }
                 }
         })
+        
         return result ;
 }
 

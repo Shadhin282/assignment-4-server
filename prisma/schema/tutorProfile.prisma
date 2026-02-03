@@ -3,13 +3,13 @@ model TutorProfile {
     userId       String  @unique
     bio          String?
     hourlyRate   Float?
-    subjects     String? // JSON string or comma separated
-    availability String? // JSON string
-    
+    subjects     String[] // JSON string or comma separated
+    availability String[] // JSON string
+    Category    String? @unique
     reviewId     String?
 
     review   Review? @relation(fields: [reviewId], references: [id])
 
     user       User       @relation(fields: [userId], references: [id], onDelete: Cascade)
-    categories Category[]
+    categories Category?  @relation(fields: [Category], references: [id], onDelete: Cascade)
 }

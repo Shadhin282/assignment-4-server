@@ -43,6 +43,7 @@ const getTutor = async (req: Request, res: Response, next: NextFunction) => {
 const getTutorById = async (req: Request, res: Response, next : NextFunction) => {
   try {
     const { id } = req.params;
+    console.log(id)
     if (!id) {
       return res.send("No Id provide");
     }
@@ -63,6 +64,29 @@ const getTutorById = async (req: Request, res: Response, next : NextFunction) =>
     next(error)
   }
 };
+
+
+const postTutorProfile = async (req:Request , res: Response, next:NextFunction) => {
+    try {
+        const tutorInfo = req.body;
+        const result = await tutorService.postTutorProfile(tutorInfo)
+
+         if (!result) {
+      return res.status(404).json({
+        success: false,
+        message: "Tutor data is not created",
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "Tutor profile info created successfully",
+      data: result,
+    });
+    } catch (error) {
+      next(error)
+    }
+}
 
 
 const putTutorProfile = async (req: Request, res: Response, next:NextFunction) => {
@@ -132,5 +156,6 @@ export const tutorController = {
   getTutor,
   getTutorById,
   putTutorProfile,
+  postTutorProfile,
   putTutorAvailability,
 };

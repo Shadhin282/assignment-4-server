@@ -39,8 +39,7 @@ export type TutorProfileMinAggregateOutputType = {
   userId: string | null
   bio: string | null
   hourlyRate: number | null
-  subjects: string | null
-  availability: string | null
+  Category: string | null
   reviewId: string | null
 }
 
@@ -49,8 +48,7 @@ export type TutorProfileMaxAggregateOutputType = {
   userId: string | null
   bio: string | null
   hourlyRate: number | null
-  subjects: string | null
-  availability: string | null
+  Category: string | null
   reviewId: string | null
 }
 
@@ -61,6 +59,7 @@ export type TutorProfileCountAggregateOutputType = {
   hourlyRate: number
   subjects: number
   availability: number
+  Category: number
   reviewId: number
   _all: number
 }
@@ -79,8 +78,7 @@ export type TutorProfileMinAggregateInputType = {
   userId?: true
   bio?: true
   hourlyRate?: true
-  subjects?: true
-  availability?: true
+  Category?: true
   reviewId?: true
 }
 
@@ -89,8 +87,7 @@ export type TutorProfileMaxAggregateInputType = {
   userId?: true
   bio?: true
   hourlyRate?: true
-  subjects?: true
-  availability?: true
+  Category?: true
   reviewId?: true
 }
 
@@ -101,6 +98,7 @@ export type TutorProfileCountAggregateInputType = {
   hourlyRate?: true
   subjects?: true
   availability?: true
+  Category?: true
   reviewId?: true
   _all?: true
 }
@@ -196,8 +194,9 @@ export type TutorProfileGroupByOutputType = {
   userId: string
   bio: string | null
   hourlyRate: number | null
-  subjects: string | null
-  availability: string | null
+  subjects: string[]
+  availability: string[]
+  Category: string | null
   reviewId: string | null
   _count: TutorProfileCountAggregateOutputType | null
   _avg: TutorProfileAvgAggregateOutputType | null
@@ -229,12 +228,13 @@ export type TutorProfileWhereInput = {
   userId?: Prisma.StringFilter<"TutorProfile"> | string
   bio?: Prisma.StringNullableFilter<"TutorProfile"> | string | null
   hourlyRate?: Prisma.FloatNullableFilter<"TutorProfile"> | number | null
-  subjects?: Prisma.StringNullableFilter<"TutorProfile"> | string | null
-  availability?: Prisma.StringNullableFilter<"TutorProfile"> | string | null
+  subjects?: Prisma.StringNullableListFilter<"TutorProfile">
+  availability?: Prisma.StringNullableListFilter<"TutorProfile">
+  Category?: Prisma.StringNullableFilter<"TutorProfile"> | string | null
   reviewId?: Prisma.StringNullableFilter<"TutorProfile"> | string | null
   review?: Prisma.XOR<Prisma.ReviewNullableScalarRelationFilter, Prisma.ReviewWhereInput> | null
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  categories?: Prisma.CategoryListRelationFilter
+  categories?: Prisma.XOR<Prisma.CategoryNullableScalarRelationFilter, Prisma.CategoryWhereInput> | null
 }
 
 export type TutorProfileOrderByWithRelationInput = {
@@ -242,37 +242,40 @@ export type TutorProfileOrderByWithRelationInput = {
   userId?: Prisma.SortOrder
   bio?: Prisma.SortOrderInput | Prisma.SortOrder
   hourlyRate?: Prisma.SortOrderInput | Prisma.SortOrder
-  subjects?: Prisma.SortOrderInput | Prisma.SortOrder
-  availability?: Prisma.SortOrderInput | Prisma.SortOrder
+  subjects?: Prisma.SortOrder
+  availability?: Prisma.SortOrder
+  Category?: Prisma.SortOrderInput | Prisma.SortOrder
   reviewId?: Prisma.SortOrderInput | Prisma.SortOrder
   review?: Prisma.ReviewOrderByWithRelationInput
   user?: Prisma.UserOrderByWithRelationInput
-  categories?: Prisma.CategoryOrderByRelationAggregateInput
+  categories?: Prisma.CategoryOrderByWithRelationInput
 }
 
 export type TutorProfileWhereUniqueInput = Prisma.AtLeast<{
   id?: string
   userId?: string
+  Category?: string
   AND?: Prisma.TutorProfileWhereInput | Prisma.TutorProfileWhereInput[]
   OR?: Prisma.TutorProfileWhereInput[]
   NOT?: Prisma.TutorProfileWhereInput | Prisma.TutorProfileWhereInput[]
   bio?: Prisma.StringNullableFilter<"TutorProfile"> | string | null
   hourlyRate?: Prisma.FloatNullableFilter<"TutorProfile"> | number | null
-  subjects?: Prisma.StringNullableFilter<"TutorProfile"> | string | null
-  availability?: Prisma.StringNullableFilter<"TutorProfile"> | string | null
+  subjects?: Prisma.StringNullableListFilter<"TutorProfile">
+  availability?: Prisma.StringNullableListFilter<"TutorProfile">
   reviewId?: Prisma.StringNullableFilter<"TutorProfile"> | string | null
   review?: Prisma.XOR<Prisma.ReviewNullableScalarRelationFilter, Prisma.ReviewWhereInput> | null
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  categories?: Prisma.CategoryListRelationFilter
-}, "id" | "userId">
+  categories?: Prisma.XOR<Prisma.CategoryNullableScalarRelationFilter, Prisma.CategoryWhereInput> | null
+}, "id" | "userId" | "Category">
 
 export type TutorProfileOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   bio?: Prisma.SortOrderInput | Prisma.SortOrder
   hourlyRate?: Prisma.SortOrderInput | Prisma.SortOrder
-  subjects?: Prisma.SortOrderInput | Prisma.SortOrder
-  availability?: Prisma.SortOrderInput | Prisma.SortOrder
+  subjects?: Prisma.SortOrder
+  availability?: Prisma.SortOrder
+  Category?: Prisma.SortOrderInput | Prisma.SortOrder
   reviewId?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.TutorProfileCountOrderByAggregateInput
   _avg?: Prisma.TutorProfileAvgOrderByAggregateInput
@@ -289,8 +292,9 @@ export type TutorProfileScalarWhereWithAggregatesInput = {
   userId?: Prisma.StringWithAggregatesFilter<"TutorProfile"> | string
   bio?: Prisma.StringNullableWithAggregatesFilter<"TutorProfile"> | string | null
   hourlyRate?: Prisma.FloatNullableWithAggregatesFilter<"TutorProfile"> | number | null
-  subjects?: Prisma.StringNullableWithAggregatesFilter<"TutorProfile"> | string | null
-  availability?: Prisma.StringNullableWithAggregatesFilter<"TutorProfile"> | string | null
+  subjects?: Prisma.StringNullableListFilter<"TutorProfile">
+  availability?: Prisma.StringNullableListFilter<"TutorProfile">
+  Category?: Prisma.StringNullableWithAggregatesFilter<"TutorProfile"> | string | null
   reviewId?: Prisma.StringNullableWithAggregatesFilter<"TutorProfile"> | string | null
 }
 
@@ -298,11 +302,11 @@ export type TutorProfileCreateInput = {
   id?: string
   bio?: string | null
   hourlyRate?: number | null
-  subjects?: string | null
-  availability?: string | null
+  subjects?: Prisma.TutorProfileCreatesubjectsInput | string[]
+  availability?: Prisma.TutorProfileCreateavailabilityInput | string[]
   review?: Prisma.ReviewCreateNestedOneWithoutReviewInput
   user: Prisma.UserCreateNestedOneWithoutTutorProfileInput
-  categories?: Prisma.CategoryCreateNestedManyWithoutTutorsInput
+  categories?: Prisma.CategoryCreateNestedOneWithoutTutorsInput
 }
 
 export type TutorProfileUncheckedCreateInput = {
@@ -310,21 +314,21 @@ export type TutorProfileUncheckedCreateInput = {
   userId: string
   bio?: string | null
   hourlyRate?: number | null
-  subjects?: string | null
-  availability?: string | null
+  subjects?: Prisma.TutorProfileCreatesubjectsInput | string[]
+  availability?: Prisma.TutorProfileCreateavailabilityInput | string[]
+  Category?: string | null
   reviewId?: string | null
-  categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutTutorsInput
 }
 
 export type TutorProfileUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   hourlyRate?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  subjects?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  availability?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subjects?: Prisma.TutorProfileUpdatesubjectsInput | string[]
+  availability?: Prisma.TutorProfileUpdateavailabilityInput | string[]
   review?: Prisma.ReviewUpdateOneWithoutReviewNestedInput
   user?: Prisma.UserUpdateOneRequiredWithoutTutorProfileNestedInput
-  categories?: Prisma.CategoryUpdateManyWithoutTutorsNestedInput
+  categories?: Prisma.CategoryUpdateOneWithoutTutorsNestedInput
 }
 
 export type TutorProfileUncheckedUpdateInput = {
@@ -332,10 +336,10 @@ export type TutorProfileUncheckedUpdateInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   hourlyRate?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  subjects?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  availability?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subjects?: Prisma.TutorProfileUpdatesubjectsInput | string[]
+  availability?: Prisma.TutorProfileUpdateavailabilityInput | string[]
+  Category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  categories?: Prisma.CategoryUncheckedUpdateManyWithoutTutorsNestedInput
 }
 
 export type TutorProfileCreateManyInput = {
@@ -343,8 +347,9 @@ export type TutorProfileCreateManyInput = {
   userId: string
   bio?: string | null
   hourlyRate?: number | null
-  subjects?: string | null
-  availability?: string | null
+  subjects?: Prisma.TutorProfileCreatesubjectsInput | string[]
+  availability?: Prisma.TutorProfileCreateavailabilityInput | string[]
+  Category?: string | null
   reviewId?: string | null
 }
 
@@ -352,8 +357,8 @@ export type TutorProfileUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   hourlyRate?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  subjects?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  availability?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subjects?: Prisma.TutorProfileUpdatesubjectsInput | string[]
+  availability?: Prisma.TutorProfileUpdateavailabilityInput | string[]
 }
 
 export type TutorProfileUncheckedUpdateManyInput = {
@@ -361,8 +366,9 @@ export type TutorProfileUncheckedUpdateManyInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   hourlyRate?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  subjects?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  availability?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subjects?: Prisma.TutorProfileUpdatesubjectsInput | string[]
+  availability?: Prisma.TutorProfileUpdateavailabilityInput | string[]
+  Category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
@@ -388,6 +394,7 @@ export type TutorProfileCountOrderByAggregateInput = {
   hourlyRate?: Prisma.SortOrder
   subjects?: Prisma.SortOrder
   availability?: Prisma.SortOrder
+  Category?: Prisma.SortOrder
   reviewId?: Prisma.SortOrder
 }
 
@@ -400,8 +407,7 @@ export type TutorProfileMaxOrderByAggregateInput = {
   userId?: Prisma.SortOrder
   bio?: Prisma.SortOrder
   hourlyRate?: Prisma.SortOrder
-  subjects?: Prisma.SortOrder
-  availability?: Prisma.SortOrder
+  Category?: Prisma.SortOrder
   reviewId?: Prisma.SortOrder
 }
 
@@ -410,8 +416,7 @@ export type TutorProfileMinOrderByAggregateInput = {
   userId?: Prisma.SortOrder
   bio?: Prisma.SortOrder
   hourlyRate?: Prisma.SortOrder
-  subjects?: Prisma.SortOrder
-  availability?: Prisma.SortOrder
+  Category?: Prisma.SortOrder
   reviewId?: Prisma.SortOrder
 }
 
@@ -451,42 +456,36 @@ export type TutorProfileUncheckedUpdateOneWithoutUserNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.TutorProfileUpdateToOneWithWhereWithoutUserInput, Prisma.TutorProfileUpdateWithoutUserInput>, Prisma.TutorProfileUncheckedUpdateWithoutUserInput>
 }
 
-export type TutorProfileCreateNestedManyWithoutCategoriesInput = {
-  create?: Prisma.XOR<Prisma.TutorProfileCreateWithoutCategoriesInput, Prisma.TutorProfileUncheckedCreateWithoutCategoriesInput> | Prisma.TutorProfileCreateWithoutCategoriesInput[] | Prisma.TutorProfileUncheckedCreateWithoutCategoriesInput[]
-  connectOrCreate?: Prisma.TutorProfileCreateOrConnectWithoutCategoriesInput | Prisma.TutorProfileCreateOrConnectWithoutCategoriesInput[]
-  connect?: Prisma.TutorProfileWhereUniqueInput | Prisma.TutorProfileWhereUniqueInput[]
+export type TutorProfileCreateNestedOneWithoutCategoriesInput = {
+  create?: Prisma.XOR<Prisma.TutorProfileCreateWithoutCategoriesInput, Prisma.TutorProfileUncheckedCreateWithoutCategoriesInput>
+  connectOrCreate?: Prisma.TutorProfileCreateOrConnectWithoutCategoriesInput
+  connect?: Prisma.TutorProfileWhereUniqueInput
 }
 
-export type TutorProfileUncheckedCreateNestedManyWithoutCategoriesInput = {
-  create?: Prisma.XOR<Prisma.TutorProfileCreateWithoutCategoriesInput, Prisma.TutorProfileUncheckedCreateWithoutCategoriesInput> | Prisma.TutorProfileCreateWithoutCategoriesInput[] | Prisma.TutorProfileUncheckedCreateWithoutCategoriesInput[]
-  connectOrCreate?: Prisma.TutorProfileCreateOrConnectWithoutCategoriesInput | Prisma.TutorProfileCreateOrConnectWithoutCategoriesInput[]
-  connect?: Prisma.TutorProfileWhereUniqueInput | Prisma.TutorProfileWhereUniqueInput[]
+export type TutorProfileUncheckedCreateNestedOneWithoutCategoriesInput = {
+  create?: Prisma.XOR<Prisma.TutorProfileCreateWithoutCategoriesInput, Prisma.TutorProfileUncheckedCreateWithoutCategoriesInput>
+  connectOrCreate?: Prisma.TutorProfileCreateOrConnectWithoutCategoriesInput
+  connect?: Prisma.TutorProfileWhereUniqueInput
 }
 
-export type TutorProfileUpdateManyWithoutCategoriesNestedInput = {
-  create?: Prisma.XOR<Prisma.TutorProfileCreateWithoutCategoriesInput, Prisma.TutorProfileUncheckedCreateWithoutCategoriesInput> | Prisma.TutorProfileCreateWithoutCategoriesInput[] | Prisma.TutorProfileUncheckedCreateWithoutCategoriesInput[]
-  connectOrCreate?: Prisma.TutorProfileCreateOrConnectWithoutCategoriesInput | Prisma.TutorProfileCreateOrConnectWithoutCategoriesInput[]
-  upsert?: Prisma.TutorProfileUpsertWithWhereUniqueWithoutCategoriesInput | Prisma.TutorProfileUpsertWithWhereUniqueWithoutCategoriesInput[]
-  set?: Prisma.TutorProfileWhereUniqueInput | Prisma.TutorProfileWhereUniqueInput[]
-  disconnect?: Prisma.TutorProfileWhereUniqueInput | Prisma.TutorProfileWhereUniqueInput[]
-  delete?: Prisma.TutorProfileWhereUniqueInput | Prisma.TutorProfileWhereUniqueInput[]
-  connect?: Prisma.TutorProfileWhereUniqueInput | Prisma.TutorProfileWhereUniqueInput[]
-  update?: Prisma.TutorProfileUpdateWithWhereUniqueWithoutCategoriesInput | Prisma.TutorProfileUpdateWithWhereUniqueWithoutCategoriesInput[]
-  updateMany?: Prisma.TutorProfileUpdateManyWithWhereWithoutCategoriesInput | Prisma.TutorProfileUpdateManyWithWhereWithoutCategoriesInput[]
-  deleteMany?: Prisma.TutorProfileScalarWhereInput | Prisma.TutorProfileScalarWhereInput[]
+export type TutorProfileUpdateOneWithoutCategoriesNestedInput = {
+  create?: Prisma.XOR<Prisma.TutorProfileCreateWithoutCategoriesInput, Prisma.TutorProfileUncheckedCreateWithoutCategoriesInput>
+  connectOrCreate?: Prisma.TutorProfileCreateOrConnectWithoutCategoriesInput
+  upsert?: Prisma.TutorProfileUpsertWithoutCategoriesInput
+  disconnect?: Prisma.TutorProfileWhereInput | boolean
+  delete?: Prisma.TutorProfileWhereInput | boolean
+  connect?: Prisma.TutorProfileWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TutorProfileUpdateToOneWithWhereWithoutCategoriesInput, Prisma.TutorProfileUpdateWithoutCategoriesInput>, Prisma.TutorProfileUncheckedUpdateWithoutCategoriesInput>
 }
 
-export type TutorProfileUncheckedUpdateManyWithoutCategoriesNestedInput = {
-  create?: Prisma.XOR<Prisma.TutorProfileCreateWithoutCategoriesInput, Prisma.TutorProfileUncheckedCreateWithoutCategoriesInput> | Prisma.TutorProfileCreateWithoutCategoriesInput[] | Prisma.TutorProfileUncheckedCreateWithoutCategoriesInput[]
-  connectOrCreate?: Prisma.TutorProfileCreateOrConnectWithoutCategoriesInput | Prisma.TutorProfileCreateOrConnectWithoutCategoriesInput[]
-  upsert?: Prisma.TutorProfileUpsertWithWhereUniqueWithoutCategoriesInput | Prisma.TutorProfileUpsertWithWhereUniqueWithoutCategoriesInput[]
-  set?: Prisma.TutorProfileWhereUniqueInput | Prisma.TutorProfileWhereUniqueInput[]
-  disconnect?: Prisma.TutorProfileWhereUniqueInput | Prisma.TutorProfileWhereUniqueInput[]
-  delete?: Prisma.TutorProfileWhereUniqueInput | Prisma.TutorProfileWhereUniqueInput[]
-  connect?: Prisma.TutorProfileWhereUniqueInput | Prisma.TutorProfileWhereUniqueInput[]
-  update?: Prisma.TutorProfileUpdateWithWhereUniqueWithoutCategoriesInput | Prisma.TutorProfileUpdateWithWhereUniqueWithoutCategoriesInput[]
-  updateMany?: Prisma.TutorProfileUpdateManyWithWhereWithoutCategoriesInput | Prisma.TutorProfileUpdateManyWithWhereWithoutCategoriesInput[]
-  deleteMany?: Prisma.TutorProfileScalarWhereInput | Prisma.TutorProfileScalarWhereInput[]
+export type TutorProfileUncheckedUpdateOneWithoutCategoriesNestedInput = {
+  create?: Prisma.XOR<Prisma.TutorProfileCreateWithoutCategoriesInput, Prisma.TutorProfileUncheckedCreateWithoutCategoriesInput>
+  connectOrCreate?: Prisma.TutorProfileCreateOrConnectWithoutCategoriesInput
+  upsert?: Prisma.TutorProfileUpsertWithoutCategoriesInput
+  disconnect?: Prisma.TutorProfileWhereInput | boolean
+  delete?: Prisma.TutorProfileWhereInput | boolean
+  connect?: Prisma.TutorProfileWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TutorProfileUpdateToOneWithWhereWithoutCategoriesInput, Prisma.TutorProfileUpdateWithoutCategoriesInput>, Prisma.TutorProfileUncheckedUpdateWithoutCategoriesInput>
 }
 
 export type TutorProfileCreateNestedManyWithoutReviewInput = {
@@ -531,6 +530,14 @@ export type TutorProfileUncheckedUpdateManyWithoutReviewNestedInput = {
   deleteMany?: Prisma.TutorProfileScalarWhereInput | Prisma.TutorProfileScalarWhereInput[]
 }
 
+export type TutorProfileCreatesubjectsInput = {
+  set: string[]
+}
+
+export type TutorProfileCreateavailabilityInput = {
+  set: string[]
+}
+
 export type NullableFloatFieldUpdateOperationsInput = {
   set?: number | null
   increment?: number
@@ -539,24 +546,34 @@ export type NullableFloatFieldUpdateOperationsInput = {
   divide?: number
 }
 
+export type TutorProfileUpdatesubjectsInput = {
+  set?: string[]
+  push?: string | string[]
+}
+
+export type TutorProfileUpdateavailabilityInput = {
+  set?: string[]
+  push?: string | string[]
+}
+
 export type TutorProfileCreateWithoutUserInput = {
   id?: string
   bio?: string | null
   hourlyRate?: number | null
-  subjects?: string | null
-  availability?: string | null
+  subjects?: Prisma.TutorProfileCreatesubjectsInput | string[]
+  availability?: Prisma.TutorProfileCreateavailabilityInput | string[]
   review?: Prisma.ReviewCreateNestedOneWithoutReviewInput
-  categories?: Prisma.CategoryCreateNestedManyWithoutTutorsInput
+  categories?: Prisma.CategoryCreateNestedOneWithoutTutorsInput
 }
 
 export type TutorProfileUncheckedCreateWithoutUserInput = {
   id?: string
   bio?: string | null
   hourlyRate?: number | null
-  subjects?: string | null
-  availability?: string | null
+  subjects?: Prisma.TutorProfileCreatesubjectsInput | string[]
+  availability?: Prisma.TutorProfileCreateavailabilityInput | string[]
+  Category?: string | null
   reviewId?: string | null
-  categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutTutorsInput
 }
 
 export type TutorProfileCreateOrConnectWithoutUserInput = {
@@ -579,28 +596,28 @@ export type TutorProfileUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   hourlyRate?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  subjects?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  availability?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subjects?: Prisma.TutorProfileUpdatesubjectsInput | string[]
+  availability?: Prisma.TutorProfileUpdateavailabilityInput | string[]
   review?: Prisma.ReviewUpdateOneWithoutReviewNestedInput
-  categories?: Prisma.CategoryUpdateManyWithoutTutorsNestedInput
+  categories?: Prisma.CategoryUpdateOneWithoutTutorsNestedInput
 }
 
 export type TutorProfileUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   hourlyRate?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  subjects?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  availability?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subjects?: Prisma.TutorProfileUpdatesubjectsInput | string[]
+  availability?: Prisma.TutorProfileUpdateavailabilityInput | string[]
+  Category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  categories?: Prisma.CategoryUncheckedUpdateManyWithoutTutorsNestedInput
 }
 
 export type TutorProfileCreateWithoutCategoriesInput = {
   id?: string
   bio?: string | null
   hourlyRate?: number | null
-  subjects?: string | null
-  availability?: string | null
+  subjects?: Prisma.TutorProfileCreatesubjectsInput | string[]
+  availability?: Prisma.TutorProfileCreateavailabilityInput | string[]
   review?: Prisma.ReviewCreateNestedOneWithoutReviewInput
   user: Prisma.UserCreateNestedOneWithoutTutorProfileInput
 }
@@ -610,8 +627,8 @@ export type TutorProfileUncheckedCreateWithoutCategoriesInput = {
   userId: string
   bio?: string | null
   hourlyRate?: number | null
-  subjects?: string | null
-  availability?: string | null
+  subjects?: Prisma.TutorProfileCreatesubjectsInput | string[]
+  availability?: Prisma.TutorProfileCreateavailabilityInput | string[]
   reviewId?: string | null
 }
 
@@ -620,43 +637,45 @@ export type TutorProfileCreateOrConnectWithoutCategoriesInput = {
   create: Prisma.XOR<Prisma.TutorProfileCreateWithoutCategoriesInput, Prisma.TutorProfileUncheckedCreateWithoutCategoriesInput>
 }
 
-export type TutorProfileUpsertWithWhereUniqueWithoutCategoriesInput = {
-  where: Prisma.TutorProfileWhereUniqueInput
+export type TutorProfileUpsertWithoutCategoriesInput = {
   update: Prisma.XOR<Prisma.TutorProfileUpdateWithoutCategoriesInput, Prisma.TutorProfileUncheckedUpdateWithoutCategoriesInput>
   create: Prisma.XOR<Prisma.TutorProfileCreateWithoutCategoriesInput, Prisma.TutorProfileUncheckedCreateWithoutCategoriesInput>
+  where?: Prisma.TutorProfileWhereInput
 }
 
-export type TutorProfileUpdateWithWhereUniqueWithoutCategoriesInput = {
-  where: Prisma.TutorProfileWhereUniqueInput
+export type TutorProfileUpdateToOneWithWhereWithoutCategoriesInput = {
+  where?: Prisma.TutorProfileWhereInput
   data: Prisma.XOR<Prisma.TutorProfileUpdateWithoutCategoriesInput, Prisma.TutorProfileUncheckedUpdateWithoutCategoriesInput>
 }
 
-export type TutorProfileUpdateManyWithWhereWithoutCategoriesInput = {
-  where: Prisma.TutorProfileScalarWhereInput
-  data: Prisma.XOR<Prisma.TutorProfileUpdateManyMutationInput, Prisma.TutorProfileUncheckedUpdateManyWithoutCategoriesInput>
+export type TutorProfileUpdateWithoutCategoriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hourlyRate?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  subjects?: Prisma.TutorProfileUpdatesubjectsInput | string[]
+  availability?: Prisma.TutorProfileUpdateavailabilityInput | string[]
+  review?: Prisma.ReviewUpdateOneWithoutReviewNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutTutorProfileNestedInput
 }
 
-export type TutorProfileScalarWhereInput = {
-  AND?: Prisma.TutorProfileScalarWhereInput | Prisma.TutorProfileScalarWhereInput[]
-  OR?: Prisma.TutorProfileScalarWhereInput[]
-  NOT?: Prisma.TutorProfileScalarWhereInput | Prisma.TutorProfileScalarWhereInput[]
-  id?: Prisma.StringFilter<"TutorProfile"> | string
-  userId?: Prisma.StringFilter<"TutorProfile"> | string
-  bio?: Prisma.StringNullableFilter<"TutorProfile"> | string | null
-  hourlyRate?: Prisma.FloatNullableFilter<"TutorProfile"> | number | null
-  subjects?: Prisma.StringNullableFilter<"TutorProfile"> | string | null
-  availability?: Prisma.StringNullableFilter<"TutorProfile"> | string | null
-  reviewId?: Prisma.StringNullableFilter<"TutorProfile"> | string | null
+export type TutorProfileUncheckedUpdateWithoutCategoriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hourlyRate?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  subjects?: Prisma.TutorProfileUpdatesubjectsInput | string[]
+  availability?: Prisma.TutorProfileUpdateavailabilityInput | string[]
+  reviewId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type TutorProfileCreateWithoutReviewInput = {
   id?: string
   bio?: string | null
   hourlyRate?: number | null
-  subjects?: string | null
-  availability?: string | null
+  subjects?: Prisma.TutorProfileCreatesubjectsInput | string[]
+  availability?: Prisma.TutorProfileCreateavailabilityInput | string[]
   user: Prisma.UserCreateNestedOneWithoutTutorProfileInput
-  categories?: Prisma.CategoryCreateNestedManyWithoutTutorsInput
+  categories?: Prisma.CategoryCreateNestedOneWithoutTutorsInput
 }
 
 export type TutorProfileUncheckedCreateWithoutReviewInput = {
@@ -664,9 +683,9 @@ export type TutorProfileUncheckedCreateWithoutReviewInput = {
   userId: string
   bio?: string | null
   hourlyRate?: number | null
-  subjects?: string | null
-  availability?: string | null
-  categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutTutorsInput
+  subjects?: Prisma.TutorProfileCreatesubjectsInput | string[]
+  availability?: Prisma.TutorProfileCreateavailabilityInput | string[]
+  Category?: string | null
 }
 
 export type TutorProfileCreateOrConnectWithoutReviewInput = {
@@ -695,34 +714,18 @@ export type TutorProfileUpdateManyWithWhereWithoutReviewInput = {
   data: Prisma.XOR<Prisma.TutorProfileUpdateManyMutationInput, Prisma.TutorProfileUncheckedUpdateManyWithoutReviewInput>
 }
 
-export type TutorProfileUpdateWithoutCategoriesInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  hourlyRate?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  subjects?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  availability?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  review?: Prisma.ReviewUpdateOneWithoutReviewNestedInput
-  user?: Prisma.UserUpdateOneRequiredWithoutTutorProfileNestedInput
-}
-
-export type TutorProfileUncheckedUpdateWithoutCategoriesInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.StringFieldUpdateOperationsInput | string
-  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  hourlyRate?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  subjects?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  availability?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  reviewId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-}
-
-export type TutorProfileUncheckedUpdateManyWithoutCategoriesInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.StringFieldUpdateOperationsInput | string
-  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  hourlyRate?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  subjects?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  availability?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  reviewId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+export type TutorProfileScalarWhereInput = {
+  AND?: Prisma.TutorProfileScalarWhereInput | Prisma.TutorProfileScalarWhereInput[]
+  OR?: Prisma.TutorProfileScalarWhereInput[]
+  NOT?: Prisma.TutorProfileScalarWhereInput | Prisma.TutorProfileScalarWhereInput[]
+  id?: Prisma.StringFilter<"TutorProfile"> | string
+  userId?: Prisma.StringFilter<"TutorProfile"> | string
+  bio?: Prisma.StringNullableFilter<"TutorProfile"> | string | null
+  hourlyRate?: Prisma.FloatNullableFilter<"TutorProfile"> | number | null
+  subjects?: Prisma.StringNullableListFilter<"TutorProfile">
+  availability?: Prisma.StringNullableListFilter<"TutorProfile">
+  Category?: Prisma.StringNullableFilter<"TutorProfile"> | string | null
+  reviewId?: Prisma.StringNullableFilter<"TutorProfile"> | string | null
 }
 
 export type TutorProfileCreateManyReviewInput = {
@@ -730,18 +733,19 @@ export type TutorProfileCreateManyReviewInput = {
   userId: string
   bio?: string | null
   hourlyRate?: number | null
-  subjects?: string | null
-  availability?: string | null
+  subjects?: Prisma.TutorProfileCreatesubjectsInput | string[]
+  availability?: Prisma.TutorProfileCreateavailabilityInput | string[]
+  Category?: string | null
 }
 
 export type TutorProfileUpdateWithoutReviewInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   hourlyRate?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  subjects?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  availability?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subjects?: Prisma.TutorProfileUpdatesubjectsInput | string[]
+  availability?: Prisma.TutorProfileUpdateavailabilityInput | string[]
   user?: Prisma.UserUpdateOneRequiredWithoutTutorProfileNestedInput
-  categories?: Prisma.CategoryUpdateManyWithoutTutorsNestedInput
+  categories?: Prisma.CategoryUpdateOneWithoutTutorsNestedInput
 }
 
 export type TutorProfileUncheckedUpdateWithoutReviewInput = {
@@ -749,9 +753,9 @@ export type TutorProfileUncheckedUpdateWithoutReviewInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   hourlyRate?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  subjects?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  availability?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  categories?: Prisma.CategoryUncheckedUpdateManyWithoutTutorsNestedInput
+  subjects?: Prisma.TutorProfileUpdatesubjectsInput | string[]
+  availability?: Prisma.TutorProfileUpdateavailabilityInput | string[]
+  Category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type TutorProfileUncheckedUpdateManyWithoutReviewInput = {
@@ -759,39 +763,11 @@ export type TutorProfileUncheckedUpdateManyWithoutReviewInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   hourlyRate?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  subjects?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  availability?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subjects?: Prisma.TutorProfileUpdatesubjectsInput | string[]
+  availability?: Prisma.TutorProfileUpdateavailabilityInput | string[]
+  Category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
-
-/**
- * Count Type TutorProfileCountOutputType
- */
-
-export type TutorProfileCountOutputType = {
-  categories: number
-}
-
-export type TutorProfileCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  categories?: boolean | TutorProfileCountOutputTypeCountCategoriesArgs
-}
-
-/**
- * TutorProfileCountOutputType without action
- */
-export type TutorProfileCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the TutorProfileCountOutputType
-   */
-  select?: Prisma.TutorProfileCountOutputTypeSelect<ExtArgs> | null
-}
-
-/**
- * TutorProfileCountOutputType without action
- */
-export type TutorProfileCountOutputTypeCountCategoriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.CategoryWhereInput
-}
 
 
 export type TutorProfileSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -801,11 +777,11 @@ export type TutorProfileSelect<ExtArgs extends runtime.Types.Extensions.Internal
   hourlyRate?: boolean
   subjects?: boolean
   availability?: boolean
+  Category?: boolean
   reviewId?: boolean
   review?: boolean | Prisma.TutorProfile$reviewArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   categories?: boolean | Prisma.TutorProfile$categoriesArgs<ExtArgs>
-  _count?: boolean | Prisma.TutorProfileCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["tutorProfile"]>
 
 export type TutorProfileSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -815,9 +791,11 @@ export type TutorProfileSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   hourlyRate?: boolean
   subjects?: boolean
   availability?: boolean
+  Category?: boolean
   reviewId?: boolean
   review?: boolean | Prisma.TutorProfile$reviewArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  categories?: boolean | Prisma.TutorProfile$categoriesArgs<ExtArgs>
 }, ExtArgs["result"]["tutorProfile"]>
 
 export type TutorProfileSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -827,9 +805,11 @@ export type TutorProfileSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   hourlyRate?: boolean
   subjects?: boolean
   availability?: boolean
+  Category?: boolean
   reviewId?: boolean
   review?: boolean | Prisma.TutorProfile$reviewArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  categories?: boolean | Prisma.TutorProfile$categoriesArgs<ExtArgs>
 }, ExtArgs["result"]["tutorProfile"]>
 
 export type TutorProfileSelectScalar = {
@@ -839,23 +819,25 @@ export type TutorProfileSelectScalar = {
   hourlyRate?: boolean
   subjects?: boolean
   availability?: boolean
+  Category?: boolean
   reviewId?: boolean
 }
 
-export type TutorProfileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "bio" | "hourlyRate" | "subjects" | "availability" | "reviewId", ExtArgs["result"]["tutorProfile"]>
+export type TutorProfileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "bio" | "hourlyRate" | "subjects" | "availability" | "Category" | "reviewId", ExtArgs["result"]["tutorProfile"]>
 export type TutorProfileInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   review?: boolean | Prisma.TutorProfile$reviewArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   categories?: boolean | Prisma.TutorProfile$categoriesArgs<ExtArgs>
-  _count?: boolean | Prisma.TutorProfileCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type TutorProfileIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   review?: boolean | Prisma.TutorProfile$reviewArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  categories?: boolean | Prisma.TutorProfile$categoriesArgs<ExtArgs>
 }
 export type TutorProfileIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   review?: boolean | Prisma.TutorProfile$reviewArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  categories?: boolean | Prisma.TutorProfile$categoriesArgs<ExtArgs>
 }
 
 export type $TutorProfilePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -863,15 +845,16 @@ export type $TutorProfilePayload<ExtArgs extends runtime.Types.Extensions.Intern
   objects: {
     review: Prisma.$ReviewPayload<ExtArgs> | null
     user: Prisma.$UserPayload<ExtArgs>
-    categories: Prisma.$CategoryPayload<ExtArgs>[]
+    categories: Prisma.$CategoryPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     userId: string
     bio: string | null
     hourlyRate: number | null
-    subjects: string | null
-    availability: string | null
+    subjects: string[]
+    availability: string[]
+    Category: string | null
     reviewId: string | null
   }, ExtArgs["result"]["tutorProfile"]>
   composites: {}
@@ -1269,7 +1252,7 @@ export interface Prisma__TutorProfileClient<T, Null = never, ExtArgs extends run
   readonly [Symbol.toStringTag]: "PrismaPromise"
   review<T extends Prisma.TutorProfile$reviewArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TutorProfile$reviewArgs<ExtArgs>>): Prisma.Prisma__ReviewClient<runtime.Types.Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  categories<T extends Prisma.TutorProfile$categoriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TutorProfile$categoriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  categories<T extends Prisma.TutorProfile$categoriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TutorProfile$categoriesArgs<ExtArgs>>): Prisma.Prisma__CategoryClient<runtime.Types.Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1303,8 +1286,9 @@ export interface TutorProfileFieldRefs {
   readonly userId: Prisma.FieldRef<"TutorProfile", 'String'>
   readonly bio: Prisma.FieldRef<"TutorProfile", 'String'>
   readonly hourlyRate: Prisma.FieldRef<"TutorProfile", 'Float'>
-  readonly subjects: Prisma.FieldRef<"TutorProfile", 'String'>
-  readonly availability: Prisma.FieldRef<"TutorProfile", 'String'>
+  readonly subjects: Prisma.FieldRef<"TutorProfile", 'String[]'>
+  readonly availability: Prisma.FieldRef<"TutorProfile", 'String[]'>
+  readonly Category: Prisma.FieldRef<"TutorProfile", 'String'>
   readonly reviewId: Prisma.FieldRef<"TutorProfile", 'String'>
 }
     
@@ -1737,11 +1721,6 @@ export type TutorProfile$categoriesArgs<ExtArgs extends runtime.Types.Extensions
    */
   include?: Prisma.CategoryInclude<ExtArgs> | null
   where?: Prisma.CategoryWhereInput
-  orderBy?: Prisma.CategoryOrderByWithRelationInput | Prisma.CategoryOrderByWithRelationInput[]
-  cursor?: Prisma.CategoryWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.CategoryScalarFieldEnum | Prisma.CategoryScalarFieldEnum[]
 }
 
 /**

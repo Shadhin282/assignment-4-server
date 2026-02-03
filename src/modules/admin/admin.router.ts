@@ -7,8 +7,8 @@ import { UserRole } from "../../../prisma/generated/prisma/enums";
 
 const router = express.Router();
 
-router.get('/',auth(UserRole.ADMIN),userController.getUsers)
-router.patch('/:id',auth(UserRole.ADMIN),userController.getUsersById)
+router.get('/users',auth(UserRole.ADMIN),userController.getUsers)
+router.patch('/users/:id',auth(UserRole.ADMIN),userController.getUsersById)
 
 
 

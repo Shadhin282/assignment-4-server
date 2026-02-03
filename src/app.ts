@@ -8,6 +8,7 @@ import { reviewsRoute } from "./modules/review/review.router";
 import { userRoute } from "./modules/admin/admin.router";
 import { notFound } from "./middleware/notFound";
 import errorHandler from "./middleware/globalErrorHandler";
+import { categoriesRoute } from "./modules/categories/categories.router";
 
 
 const app = express();
@@ -37,9 +38,11 @@ app.use('/api/tutor', tutorRoute)
 
 app.use('/api/bookings',bookingRoute)
 
-app.use('api/reviews',reviewsRoute)
+app.use('/api/reviews',reviewsRoute)
 
-app.use('/api/admin/users',userRoute)
+app.use('/api/categories', categoriesRoute)
+
+app.use('/api/admin',userRoute)
 
 app.get("/", (req, res) => {
     

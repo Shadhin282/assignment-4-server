@@ -1230,6 +1230,7 @@ export const TutorProfileScalarFieldEnum = {
   hourlyRate: 'hourlyRate',
   subjects: 'subjects',
   availability: 'availability',
+  Category: 'Category',
   reviewId: 'reviewId'
 } as const
 

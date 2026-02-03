@@ -1,41 +1,42 @@
 import { NextFunction, Request, Response } from "express"
-import { reviewsService } from "./review.service"
+import { CategoriesService } from "./categories.service"
 
 
 
 
-const getReview = async (req:Request,res: Response, next:NextFunction)=>{
+
+const getCategory = async (req:Request,res: Response, next:NextFunction)=>{
         try {
-                const result = await reviewsService.getReview()
+                const result = await CategoriesService.getCategory()
                  if(!result){
                         return res.status(400).json({
                         success: false,
-                        message : "Review has not got"
+                        message : "Category has not got"
                         })
                 }
                 res.status(200).json({
                         success: true,
-                        message : "Review Data fetch Successfully",
+                        message : "Category Data fetch Successfully",
                         data : result
                 })
         } catch (error) {
                 next(error)
         }
 }
-const postReview = async (req:Request,res: Response, next: NextFunction)=>{
+const postCategory= async (req:Request,res: Response, next: NextFunction)=>{
         try {
-                const {rating, comment} = req.body;
                 
-                const result = await reviewsService.postReview(req.body)
+                
+                const result = await CategoriesService.postCategory(req.body)
                 if(!result){
                         return res.status(400).json({
                         success: false,
-                        message : "Review has not created"
+                        message : "Category has not created"
                         })
                 }
                  res.status(201).json({
                         success: true,
-                        message : "Review Data has created Successfully",
+                        message : "Category Data has created Successfully",
                         data : result
                 })
         } catch (error) {
@@ -46,7 +47,7 @@ const postReview = async (req:Request,res: Response, next: NextFunction)=>{
 
 
 
-export const reviewsController = {
-        getReview,
-        postReview
+export const categoriesController = {
+        getCategory,
+        postCategory
 }

@@ -18,6 +18,13 @@ const getBookingById = async (id:string)=> {
 }
 
 const postBooking = async (payload: { date: Date; status: string; studentId: string; tutorId: string }) => {
+        
+        const tutorProfile = await prisma.tutorProfile.findUniqueOrThrow({
+                where : {
+                        id : payload.tutorId
+                }
+        })
+
         const result = await prisma.booking.create({
                 data: {
                         date: payload.date,
