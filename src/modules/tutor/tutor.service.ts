@@ -1,28 +1,48 @@
+import { TutorProfile } from "../../../prisma/generated/prisma/client";
 import { prisma } from "../../lib/prisma";
 
-const getTutor = async (
-  search?: string | undefined,
-  rating?: number | undefined,
-  price?: number | undefined,
-  name?: string | undefined,
-) => {
-    
-//   console.log(search, rating, price, name);
 
+  
+ const getTutor = async (
+  search?: string,
+  rating?: number,
+  price?: number,
+  categoryName?: string,
+) => {
+  
   const result = await prisma.tutorProfile.findMany({
     where: {
       AND: [
-        ...(search ? [{ subjects:{ hasSome: [search] } }] : []),
-        ...(price ? [{ hourlyRate: price }] : []),
-        ...(rating ? [{ review: { rating } }] : []),
-        ...(name ? [{ Category: name }] : []),
-      ],
-    },
+    ...(search ? [{ subjects: { hasSome: [search], },},]: []),
+    ...(price ? [{ hourlyRate: { lte: price, }, }, ] : []), 
+    ...(rating ? [ { review: { some: { rating: { gte: rating, } }, }, }, ] : []),
+    ...(categoryName ? [ { category: { name: categoryName, }, }, ] : []), ], },
+      include: {
+          category: true,
+          _count : {
+            select : {
+              review : true
+            }
+          },
+          user : true
+      }
    
-  });
+    },
+  );
+
+  
 
   return result;
 };
+
+
+const postTutor = async (payload: {}, id : string)=>{
+        const result = await prisma.tutorProfile.create({
+           data : {...payload, authorId : id}
+        })
+        return result
+}  
+
 
 const getTutorById = async (id: string )=>{
             const result = await prisma.tutorProfile.findFirst({
@@ -36,55 +56,39 @@ const getTutorById = async (id: string )=>{
 }
 
 
-const postTutorProfile = async (payload: {bio: string; hourlyRate: number; subjects: string[]; availability: string[]; userId?: string | undefined}) => {
-    const result = await prisma.tutorProfile.create({
-       data : {
-        bio: payload.bio,
-        hourlyRate: payload.hourlyRate,
-        subjects: payload.subjects,
-        availability: payload.availability,
-        ...(payload.userId ? { userId: payload.userId } : {})
-       },
-       include : {
-        categories : true,
-        review : true,
-        user : true
-       }
-    })
-    return result;
-}
-
-
-const putTutorProfile = async (id: string, data: {bio : string;
-    hourlyRate: number;
-    subjects :  string[]; 
-    availability : string[];}) => {
-    const result = await prisma.tutorProfile.update({
-      where : {
-        id : id as string
-      },
-      data
-    })
-    return result;
-}
-
-const putTutorAvailability = async (id : string  ,data: {status:string[]}) => {
+const putTutorAvilability = async (payload:TutorProfile, userId : string) => {
         const result = await prisma.tutorProfile.update({
-          where : {
-            id
-          },
-          data : {
-            availability: data.status
-          }
+            where : {
+              id : payload.id,
+              authorId : userId
+            },
+            data : {...payload, availability : payload.availability as any}
         })
-        return result;
 }
+
+
+const putTutorProfile = async (payload:{id: string;
+    authorId?: string;
+    bio?: string | null;
+    hourlyRate?: number | null;
+    subjects?: string[];
+    availability?: any;
+    categoryName?: string | null;}, userId : string) => {
+        const result = await prisma.tutorProfile.update({
+            where : {
+              id : payload.id,
+              authorId : userId
+            },
+            data : {...payload}
+        })
+}
+
 
 
 export const tutorService = {
   getTutor,
   getTutorById,
-  putTutorProfile,
-  postTutorProfile,  
-  putTutorAvailability
+  postTutor,
+  putTutorAvilability,
+  putTutorProfile
 };

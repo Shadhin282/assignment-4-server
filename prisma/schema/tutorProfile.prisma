@@ -1,15 +1,16 @@
 model TutorProfile {
     id           String  @id @default(uuid())
-    userId       String  @unique
+    authorId     String  @unique
     bio          String?
     hourlyRate   Float?
     subjects     String[] // JSON string or comma separated
-    availability String[] // JSON string
-    Category    String? @unique
-    reviewId     String?
+    availability Json? // JSON string
+    categoryName String?
+    
+    review Review[]
+    booking Booking[]
 
-    review   Review? @relation(fields: [reviewId], references: [id])
-
-    user       User       @relation(fields: [userId], references: [id], onDelete: Cascade)
-    categories Category?  @relation(fields: [Category], references: [id], onDelete: Cascade)
+    
+    user User @relation(fields: [authorId], references: [id])
+    category Category?  @relation(fields: [categoryName], references: [name], onDelete: Cascade)
 }

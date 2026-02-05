@@ -6,7 +6,7 @@ const getReview =async ()=>{
 }
 
 
-const postReview =async (payload:{ rating : number, comment: string, studentId: string, tutorId: string})=>{
+const postReview =async (payload:{ rating : number, comment: string, tutorId: string}, userid : string)=>{
       
         const tutorProfile = await prisma.tutorProfile.findUniqueOrThrow({
                 where : {
@@ -18,8 +18,9 @@ const postReview =async (payload:{ rating : number, comment: string, studentId: 
                 data  : {
                        rating :  payload.rating,
                        comment : payload.comment,
-                       student: { connect: { id: payload.studentId } },
-                       tutor: { connect: { id: payload.tutorId } }
+                       studentId: userid,
+                       tutorId : payload.tutorId
+                       
                 }
         })
         

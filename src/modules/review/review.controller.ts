@@ -25,8 +25,10 @@ const getReview = async (req:Request,res: Response, next:NextFunction)=>{
 const postReview = async (req:Request,res: Response, next: NextFunction)=>{
         try {
                 const {rating, comment} = req.body;
-                
-                const result = await reviewsService.postReview(req.body)
+                if(!req.user){
+                        return res.send("unauthorized")
+                }
+                const result = await reviewsService.postReview(req.body, req.user.id as string)
                 if(!result){
                         return res.status(400).json({
                         success: false,

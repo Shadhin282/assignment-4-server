@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from "express";
+import { NextFunction, Request, RequestHandler, Response } from "express";
 import { tutorService } from "./tutor.service";
 
 
@@ -22,7 +22,7 @@ const getTutor = async (req: Request, res: Response, next: NextFunction) => {
       categoryName,
     );
 
-    if (!result || result.length === 0) {
+    if (!result ) {
       return res.status(404).json({
         success: false,
         message: "No tutor data found",
@@ -38,6 +38,32 @@ const getTutor = async (req: Request, res: Response, next: NextFunction) => {
     next(error)
   }
 };
+
+
+const postTutor : RequestHandler = async (req, res, next) =>{
+      try {
+          if(!req.user){
+            return res.send("unauthorized")
+          }
+
+          const result = await tutorService.postTutor(req.body, req.user.id as string)
+          
+           if (!result) {
+      return res.status(404).json({
+        success: false,
+        message: "Tutor Data has not created",
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "Tutor Data has created successfully",
+      data: result,
+    });
+        } catch (error) {
+          next(error)
+      }
+}
 
 
 const getTutorById = async (req: Request, res: Response, next : NextFunction) => {
@@ -66,96 +92,32 @@ const getTutorById = async (req: Request, res: Response, next : NextFunction) =>
 };
 
 
-const postTutorProfile = async (req:Request , res: Response, next:NextFunction) => {
+const putTutorAvilability : RequestHandler = async (req, res, next) => {
     try {
-        const tutorInfo = req.body;
-        const result = await tutorService.postTutorProfile(tutorInfo)
-
-         if (!result) {
-      return res.status(404).json({
-        success: false,
-        message: "Tutor data is not created",
-      });
-    }
-
-    res.status(200).json({
-      success: true,
-      message: "Tutor profile info created successfully",
-      data: result,
-    });
+          if(!req.user){
+            return res.send("Unathorized")
+          }
+            const result = await tutorService.putTutorAvilability(req.body,req.user.id as string)
     } catch (error) {
       next(error)
     }
 }
 
 
-const putTutorProfile = async (req: Request, res: Response, next:NextFunction) => {
+const putTutorProfile : RequestHandler = async (req, res, next) => {
   try {
-    if (!req.user) {
-      return res.send("Not provided any user");
-    }
-    const { id } = req.user;
-    
-    if (!req.body) {
-      return res.send("Not provide Update data");
-    }
-    const result = await tutorService.putTutorProfile(id as string, req.body);
-    if (!result) {
-      return res.status(404).json({
-        success: false,
-        message: "Tutor data not updated",
-      });
-    }
-
-    res.status(200).json({
-      success: true,
-      message: "Tutor profile info updated successfully",
-      data: result,
-    });
+     if(!req.user){
+            return res.send("Unathorized")
+          }
+            const result = await tutorService.putTutorProfile(req.body,req.user.id as string)
   } catch (error) {
-    next(error)
-  }
-};
-
-
-const putTutorAvailability = async (
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) => {
-  try {
-    if (!req.user) {
-      return res.send("Not provided any user");
-    }
-    const {id} = req.user;
     
-    if (!req.body) {
-      return res.send("Not provide Update data");
-    }
-    const result = await tutorService.putTutorProfile(id, req.body);
-
-    if (!result) {
-      return res.status(404).json({
-        success: false,
-        message: "Not Update tutor availability status",
-      });
-    }
-
-    res.status(200).json({
-      success: true,
-      message: "tutor availability status has updated successfully",
-      data: result,
-    });
-  } catch (error) {
-    next(error);
   }
-};
-
-
+}
 export const tutorController = {
   getTutor,
   getTutorById,
-  putTutorProfile,
-  postTutorProfile,
-  putTutorAvailability,
+  postTutor,
+  putTutorAvilability,
+  putTutorProfile
 };

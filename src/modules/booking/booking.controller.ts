@@ -49,8 +49,11 @@ const getBookingById = async (req:Request, res:Response,next:NextFunction)=>{
 const postBooking = async (req:Request, res: Response,next:NextFunction) => {
        try {
                  const bookingInfo = req.body;
-
-        const result = await bookingService.postBooking(bookingInfo)
+                 console.log(bookingInfo)
+                if(!req.user){
+                        return res.send("Unauthorized")
+                }
+        const result = await bookingService.postBooking(bookingInfo, req.user.id as string)
          if(!result){
                         return res.status(400).json({
                         success: false,

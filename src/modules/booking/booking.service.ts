@@ -9,34 +9,29 @@ const getBooking = async ()=>{
 const getBookingById = async (id:string)=> {
         const result = await prisma.booking.findFirst({
                 where : {
-                        student : {
-                                id : id
-                        } 
+                       id
                 }
         })
         return result;
 }
 
-const postBooking = async (payload: { date: Date; status: string; studentId: string; tutorId: string }) => {
+const postBooking = async (payload: { date: Date; status?: string; tutorId: string }, userid : string) => {
         
         const tutorProfile = await prisma.tutorProfile.findUniqueOrThrow({
                 where : {
                         id : payload.tutorId
                 }
         })
-
+        console.log("tutor profile",tutorProfile)
         const result = await prisma.booking.create({
                 data: {
                         date: payload.date,
                         status: payload.status as BookingStatus,
-                        student: {
-                                connect: { id: payload.studentId }
-                        },
-                        tutor: {
-                                connect: { id: payload.tutorId }
-                        }
+                        studentId : userid,
+                        tutorId: payload.tutorId
                 }
         })
+        console.log("booking create ", result)
         return result;
 }
 

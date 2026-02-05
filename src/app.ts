@@ -34,6 +34,7 @@ app.get("/api/me", async (req, res) => {
 
 
 app.use('/api/tutors',tutorRoute)
+
 app.use('/api/tutor', tutorRoute)
 
 app.use('/api/bookings',bookingRoute)

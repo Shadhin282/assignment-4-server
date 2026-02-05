@@ -298,14 +298,9 @@ export type StudentProfileUncheckedUpdateManyInput = {
   FavroiteSubjects?: Prisma.StudentProfileUpdateFavroiteSubjectsInput | string[]
 }
 
-export type StudentProfileListRelationFilter = {
-  every?: Prisma.StudentProfileWhereInput
-  some?: Prisma.StudentProfileWhereInput
-  none?: Prisma.StudentProfileWhereInput
-}
-
-export type StudentProfileOrderByRelationAggregateInput = {
-  _count?: Prisma.SortOrder
+export type StudentProfileNullableScalarRelationFilter = {
+  is?: Prisma.StudentProfileWhereInput | null
+  isNot?: Prisma.StudentProfileWhereInput | null
 }
 
 export type StringNullableListFilter<$PrismaModel = never> = {
@@ -341,46 +336,36 @@ export type StudentProfileMinOrderByAggregateInput = {
   department?: Prisma.SortOrder
 }
 
-export type StudentProfileCreateNestedManyWithoutStudentInput = {
-  create?: Prisma.XOR<Prisma.StudentProfileCreateWithoutStudentInput, Prisma.StudentProfileUncheckedCreateWithoutStudentInput> | Prisma.StudentProfileCreateWithoutStudentInput[] | Prisma.StudentProfileUncheckedCreateWithoutStudentInput[]
-  connectOrCreate?: Prisma.StudentProfileCreateOrConnectWithoutStudentInput | Prisma.StudentProfileCreateOrConnectWithoutStudentInput[]
-  createMany?: Prisma.StudentProfileCreateManyStudentInputEnvelope
-  connect?: Prisma.StudentProfileWhereUniqueInput | Prisma.StudentProfileWhereUniqueInput[]
+export type StudentProfileCreateNestedOneWithoutStudentInput = {
+  create?: Prisma.XOR<Prisma.StudentProfileCreateWithoutStudentInput, Prisma.StudentProfileUncheckedCreateWithoutStudentInput>
+  connectOrCreate?: Prisma.StudentProfileCreateOrConnectWithoutStudentInput
+  connect?: Prisma.StudentProfileWhereUniqueInput
 }
 
-export type StudentProfileUncheckedCreateNestedManyWithoutStudentInput = {
-  create?: Prisma.XOR<Prisma.StudentProfileCreateWithoutStudentInput, Prisma.StudentProfileUncheckedCreateWithoutStudentInput> | Prisma.StudentProfileCreateWithoutStudentInput[] | Prisma.StudentProfileUncheckedCreateWithoutStudentInput[]
-  connectOrCreate?: Prisma.StudentProfileCreateOrConnectWithoutStudentInput | Prisma.StudentProfileCreateOrConnectWithoutStudentInput[]
-  createMany?: Prisma.StudentProfileCreateManyStudentInputEnvelope
-  connect?: Prisma.StudentProfileWhereUniqueInput | Prisma.StudentProfileWhereUniqueInput[]
+export type StudentProfileUncheckedCreateNestedOneWithoutStudentInput = {
+  create?: Prisma.XOR<Prisma.StudentProfileCreateWithoutStudentInput, Prisma.StudentProfileUncheckedCreateWithoutStudentInput>
+  connectOrCreate?: Prisma.StudentProfileCreateOrConnectWithoutStudentInput
+  connect?: Prisma.StudentProfileWhereUniqueInput
 }
 
-export type StudentProfileUpdateManyWithoutStudentNestedInput = {
-  create?: Prisma.XOR<Prisma.StudentProfileCreateWithoutStudentInput, Prisma.StudentProfileUncheckedCreateWithoutStudentInput> | Prisma.StudentProfileCreateWithoutStudentInput[] | Prisma.StudentProfileUncheckedCreateWithoutStudentInput[]
-  connectOrCreate?: Prisma.StudentProfileCreateOrConnectWithoutStudentInput | Prisma.StudentProfileCreateOrConnectWithoutStudentInput[]
-  upsert?: Prisma.StudentProfileUpsertWithWhereUniqueWithoutStudentInput | Prisma.StudentProfileUpsertWithWhereUniqueWithoutStudentInput[]
-  createMany?: Prisma.StudentProfileCreateManyStudentInputEnvelope
-  set?: Prisma.StudentProfileWhereUniqueInput | Prisma.StudentProfileWhereUniqueInput[]
-  disconnect?: Prisma.StudentProfileWhereUniqueInput | Prisma.StudentProfileWhereUniqueInput[]
-  delete?: Prisma.StudentProfileWhereUniqueInput | Prisma.StudentProfileWhereUniqueInput[]
-  connect?: Prisma.StudentProfileWhereUniqueInput | Prisma.StudentProfileWhereUniqueInput[]
-  update?: Prisma.StudentProfileUpdateWithWhereUniqueWithoutStudentInput | Prisma.StudentProfileUpdateWithWhereUniqueWithoutStudentInput[]
-  updateMany?: Prisma.StudentProfileUpdateManyWithWhereWithoutStudentInput | Prisma.StudentProfileUpdateManyWithWhereWithoutStudentInput[]
-  deleteMany?: Prisma.StudentProfileScalarWhereInput | Prisma.StudentProfileScalarWhereInput[]
+export type StudentProfileUpdateOneWithoutStudentNestedInput = {
+  create?: Prisma.XOR<Prisma.StudentProfileCreateWithoutStudentInput, Prisma.StudentProfileUncheckedCreateWithoutStudentInput>
+  connectOrCreate?: Prisma.StudentProfileCreateOrConnectWithoutStudentInput
+  upsert?: Prisma.StudentProfileUpsertWithoutStudentInput
+  disconnect?: Prisma.StudentProfileWhereInput | boolean
+  delete?: Prisma.StudentProfileWhereInput | boolean
+  connect?: Prisma.StudentProfileWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.StudentProfileUpdateToOneWithWhereWithoutStudentInput, Prisma.StudentProfileUpdateWithoutStudentInput>, Prisma.StudentProfileUncheckedUpdateWithoutStudentInput>
 }
 
-export type StudentProfileUncheckedUpdateManyWithoutStudentNestedInput = {
-  create?: Prisma.XOR<Prisma.StudentProfileCreateWithoutStudentInput, Prisma.StudentProfileUncheckedCreateWithoutStudentInput> | Prisma.StudentProfileCreateWithoutStudentInput[] | Prisma.StudentProfileUncheckedCreateWithoutStudentInput[]
-  connectOrCreate?: Prisma.StudentProfileCreateOrConnectWithoutStudentInput | Prisma.StudentProfileCreateOrConnectWithoutStudentInput[]
-  upsert?: Prisma.StudentProfileUpsertWithWhereUniqueWithoutStudentInput | Prisma.StudentProfileUpsertWithWhereUniqueWithoutStudentInput[]
-  createMany?: Prisma.StudentProfileCreateManyStudentInputEnvelope
-  set?: Prisma.StudentProfileWhereUniqueInput | Prisma.StudentProfileWhereUniqueInput[]
-  disconnect?: Prisma.StudentProfileWhereUniqueInput | Prisma.StudentProfileWhereUniqueInput[]
-  delete?: Prisma.StudentProfileWhereUniqueInput | Prisma.StudentProfileWhereUniqueInput[]
-  connect?: Prisma.StudentProfileWhereUniqueInput | Prisma.StudentProfileWhereUniqueInput[]
-  update?: Prisma.StudentProfileUpdateWithWhereUniqueWithoutStudentInput | Prisma.StudentProfileUpdateWithWhereUniqueWithoutStudentInput[]
-  updateMany?: Prisma.StudentProfileUpdateManyWithWhereWithoutStudentInput | Prisma.StudentProfileUpdateManyWithWhereWithoutStudentInput[]
-  deleteMany?: Prisma.StudentProfileScalarWhereInput | Prisma.StudentProfileScalarWhereInput[]
+export type StudentProfileUncheckedUpdateOneWithoutStudentNestedInput = {
+  create?: Prisma.XOR<Prisma.StudentProfileCreateWithoutStudentInput, Prisma.StudentProfileUncheckedCreateWithoutStudentInput>
+  connectOrCreate?: Prisma.StudentProfileCreateOrConnectWithoutStudentInput
+  upsert?: Prisma.StudentProfileUpsertWithoutStudentInput
+  disconnect?: Prisma.StudentProfileWhereInput | boolean
+  delete?: Prisma.StudentProfileWhereInput | boolean
+  connect?: Prisma.StudentProfileWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.StudentProfileUpdateToOneWithWhereWithoutStudentInput, Prisma.StudentProfileUpdateWithoutStudentInput>, Prisma.StudentProfileUncheckedUpdateWithoutStudentInput>
 }
 
 export type StudentProfileCreateFavroiteSubjectsInput = {
@@ -413,45 +398,15 @@ export type StudentProfileCreateOrConnectWithoutStudentInput = {
   create: Prisma.XOR<Prisma.StudentProfileCreateWithoutStudentInput, Prisma.StudentProfileUncheckedCreateWithoutStudentInput>
 }
 
-export type StudentProfileCreateManyStudentInputEnvelope = {
-  data: Prisma.StudentProfileCreateManyStudentInput | Prisma.StudentProfileCreateManyStudentInput[]
-  skipDuplicates?: boolean
-}
-
-export type StudentProfileUpsertWithWhereUniqueWithoutStudentInput = {
-  where: Prisma.StudentProfileWhereUniqueInput
+export type StudentProfileUpsertWithoutStudentInput = {
   update: Prisma.XOR<Prisma.StudentProfileUpdateWithoutStudentInput, Prisma.StudentProfileUncheckedUpdateWithoutStudentInput>
   create: Prisma.XOR<Prisma.StudentProfileCreateWithoutStudentInput, Prisma.StudentProfileUncheckedCreateWithoutStudentInput>
+  where?: Prisma.StudentProfileWhereInput
 }
 
-export type StudentProfileUpdateWithWhereUniqueWithoutStudentInput = {
-  where: Prisma.StudentProfileWhereUniqueInput
+export type StudentProfileUpdateToOneWithWhereWithoutStudentInput = {
+  where?: Prisma.StudentProfileWhereInput
   data: Prisma.XOR<Prisma.StudentProfileUpdateWithoutStudentInput, Prisma.StudentProfileUncheckedUpdateWithoutStudentInput>
-}
-
-export type StudentProfileUpdateManyWithWhereWithoutStudentInput = {
-  where: Prisma.StudentProfileScalarWhereInput
-  data: Prisma.XOR<Prisma.StudentProfileUpdateManyMutationInput, Prisma.StudentProfileUncheckedUpdateManyWithoutStudentInput>
-}
-
-export type StudentProfileScalarWhereInput = {
-  AND?: Prisma.StudentProfileScalarWhereInput | Prisma.StudentProfileScalarWhereInput[]
-  OR?: Prisma.StudentProfileScalarWhereInput[]
-  NOT?: Prisma.StudentProfileScalarWhereInput | Prisma.StudentProfileScalarWhereInput[]
-  id?: Prisma.StringFilter<"StudentProfile"> | string
-  name?: Prisma.StringFilter<"StudentProfile"> | string
-  studentId?: Prisma.StringFilter<"StudentProfile"> | string
-  bio?: Prisma.StringNullableFilter<"StudentProfile"> | string | null
-  department?: Prisma.StringNullableFilter<"StudentProfile"> | string | null
-  FavroiteSubjects?: Prisma.StringNullableListFilter<"StudentProfile">
-}
-
-export type StudentProfileCreateManyStudentInput = {
-  id?: string
-  name: string
-  bio?: string | null
-  department?: string | null
-  FavroiteSubjects?: Prisma.StudentProfileCreateFavroiteSubjectsInput | string[]
 }
 
 export type StudentProfileUpdateWithoutStudentInput = {
@@ -463,14 +418,6 @@ export type StudentProfileUpdateWithoutStudentInput = {
 }
 
 export type StudentProfileUncheckedUpdateWithoutStudentInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  FavroiteSubjects?: Prisma.StudentProfileUpdateFavroiteSubjectsInput | string[]
-}
-
-export type StudentProfileUncheckedUpdateManyWithoutStudentInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null

@@ -3,7 +3,7 @@ model Category {
     name        String  @unique
     description String?
 
-    tutors TutorProfile?
+    tutors TutorProfile[]
 
     @@index([name])
 }

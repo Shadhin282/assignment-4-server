@@ -1,15 +1,14 @@
 model Review {
-    id String @id @default(uuid()) @unique
-   studentId String
+  id String @id @default(uuid()) @unique
+  studentId String
   tutorId   String
   rating    Int
   comment   String?
   createdAt DateTime @default(now())
   
-  student   User     @relation("StudentReviews", fields: [studentId], references: [id])
-  tutor     User     @relation("TutorReviews", fields: [tutorId], references: [id])
+  tutor TutorProfile @relation(fields: [tutorId], references: [id], onDelete: Cascade)
  
-  review    TutorProfile[]
+  
    
     @@index([studentId])
     @@index([tutorId])
